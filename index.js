@@ -1,23 +1,85 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
 const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+    type User {
+        id: ID!
+        firstName: String!
+        lastName: String!
+        email: String!
+    }
 
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
+    input UserCreateInput {
+        firstName: String!
+        lastName: String!
+        email: String!
+    }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
+    input UserUpdateInput {
+        id: ID!
+        firstName: String
+        lastName: String
+        email: String
+    }
+
+    type Post {
+        id: ID!
+        author: User!
+        title: String!
+        text: String!
+        dateCreated: Int!
+    }
+
+    input PostCreateInput {
+        title: String!
+        text: String!
+    }
+
+    input PostUpdateInput {
+        id: ID!
+        title: String
+        text: String
+    }
+
+    type Comment {
+        id: ID!
+        post: Post!
+        replyTo: Comment
+        author: User!
+        text: String!
+        dateCreated: Int!
+        replies: [Comment]!
+    }
+
+    input CommentCreateInput {
+        post: ID!
+        replyTo: ID
+        text: String!
+    }
+
+    input CommentUpdateInput {
+        id: ID!
+        text: String!
+    }
+
+    type Query {
+        getUser(id: ID!): User
+        getPost(id: ID!): Post
+        getComment(id: ID!): Comment
+    }
+
+    type Mutation {
+        createUser(user: UserCreateInput!) User!
+        updateUser(user: UserUpdateInput!) User!
+        deleteUser(id: ID!) User!
+
+        createPost(post: PostCreateInput!) Post!
+        updatePost(post: PostUpdateInput!) Post!
+        deletePost(id: ID!) Post!
+
+        createComment(comment: CommentCreateInput!) Comment!
+        updateComment(comment: CommentUpdateInput!) Comment!
+        deleteComment(id: ID!) Comment!
+    }
 `;
 
 const books = [
@@ -41,5 +103,5 @@ const server = new ApolloServer({ typeDefs, resolvers });
 
 // The `listen` method launches a web server.
 server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+    console.log(`🚀  Server ready at ${url}`);
 });
