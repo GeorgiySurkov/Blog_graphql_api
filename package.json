@@ -1,0 +1,13 @@
+{
+  "name": "blog_graph_ql_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/GeorgiySurkov/Blog_graphql_api",
+  "author": "GeorgiySurkov",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "graphql": "^15.4.0"
+  }
+}
