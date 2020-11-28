@@ -1,7 +1,7 @@
-import { gql } from 'apollo-server';
+const { gql } = require('apollo-server');
 
 
-export const typeDefs = gql`
+const typeDefs = gql`
     type User {
         id: ID!
         firstName: String!
@@ -27,8 +27,12 @@ export const typeDefs = gql`
     }
 
     extend type Mutation {
-        createUser(user: UserCreateInput!) User!
-        updateUser(user: UserUpdateInput!) User!
-        deleteUser(id: ID!) User!
+        createUser(user: UserCreateInput!): User!
+        updateUser(user: UserUpdateInput!): User!
+        deleteUser(id: ID!): User!
     }
 `
+
+module.exports = {
+    typeDefs
+}

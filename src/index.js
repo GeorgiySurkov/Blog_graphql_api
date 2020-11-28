@@ -1,7 +1,10 @@
-import { ApolloServer, gql } from "apollo-server";
-import * as comments from './comments';
-import * as posts from './posts';
-import * as users from './users';
+const dotenv = require('dotenv');
+dotenv.config();
+const { ApolloServer, gql } = require("apollo-server");
+require('./db');
+const comments = require('./comments');
+const posts = require('./posts');
+const users = require('./users');
 
 const typeDef = gql`
   type Query
