@@ -13,7 +13,7 @@ const typeDef = gql`
 
 const server = new ApolloServer({
   typeDefs: [typeDef, comments.typeDefs, posts.typeDefs, users.typeDefs],
-  resolvers: [],
+  resolvers: [users.resolvers],
 });
 
 server.listen().then(({ url }) => {
