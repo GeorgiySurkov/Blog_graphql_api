@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose");
 
+
 const PostSchema = new Schema({
     author: {
         type: Schema.Types.ObjectID,

@@ -9,13 +9,13 @@ const typeDefs = gql`
         replyTo: Repliable!
         author: User!
         text: String!
-        dateCreated: Int!
+        dateCreated: Date!
         replies: [Comment!]!
     }
 
     input CommentCreateInput {
-        post: ID!
-        replyTo: ID
+        postId: ID!
+        replyToComment: ID
         text: String!
     }
 
@@ -29,9 +29,9 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        createComment(comment: CommentCreateInput!): Comment!
-        updateComment(comment: CommentUpdateInput!): Comment!
-        deleteComment(id: ID!): Comment!
+        createComment(userId: ID!, comment: CommentCreateInput!): Comment!
+        updateComment(userId: ID!, comment: CommentUpdateInput!): Comment!
+        deleteComment(userId: ID!, id: ID!): Comment!
     }
 `
 

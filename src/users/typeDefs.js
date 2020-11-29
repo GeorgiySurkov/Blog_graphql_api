@@ -7,6 +7,7 @@ const typeDefs = gql`
         firstName: String!
         lastName: String!
         email: String!
+        posts: [Post!]!
     }
 
     input UserCreateInput {

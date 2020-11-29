@@ -1,8 +1,16 @@
-const { UserModel, default: user } = require('./models/user');
-const { getByIdOrUserInputError, updateObjectFields } = require('../helpers');
+const {UserModel} = require('./models/user');
+const {PostModel} = require('../posts/models');
+const {getByIdOrUserInputError, updateObjectFields} = require('../helpers');
 
 
 const resolvers = {
+    User: {
+        posts: async (parent, args, context, info) => {
+            return await PostModel.find({
+                'author': parent._id
+            });
+        }
+    },
     Query: {
         getUser: async (parent, args, context, info) => {
             return await getByIdOrUserInputError(UserModel, args.id, 'User not found');

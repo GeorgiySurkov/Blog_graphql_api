@@ -27,3 +27,7 @@ const CommentSchema = new Schema({
         default: () => new Date()
     }
 });
+
+module.exports = {
+    CommentModel: model('Comment', CommentSchema)
+};
