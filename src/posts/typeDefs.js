@@ -7,7 +7,8 @@ const typeDefs = gql`
         author: User!
         title: String!
         text: String!
-        dateCreated: Int!
+        dateCreated: Date!
+        replies: [Comment!]!
     }
 
     input PostCreateInput {
@@ -26,9 +27,9 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        createPost(post: PostCreateInput!): Post!
-        updatePost(post: PostUpdateInput!): Post!
-        deletePost(id: ID!): Post!
+        createPost(userId: ID!, post: PostCreateInput!): Post!
+        updatePost(userId: ID!, post: PostUpdateInput!): Post!
+        deletePost(userId: ID!, id: ID!): Post!
     }
 `
 

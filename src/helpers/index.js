@@ -1,10 +1,10 @@
 const { UserInputError } = require('apollo-server');
 
 
-async function getByIdOrUserInputError(model, id) {
+async function getByIdOrUserInputError(model, id, message) {
     const document = await model.findById(id);
     if (document === null) {
-        throw new UserInputError('User not found')
+        throw new UserInputError(message)
     }
     return document;
 }

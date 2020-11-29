@@ -5,8 +5,7 @@ const { getByIdOrUserInputError, updateObjectFields } = require('../helpers');
 const resolvers = {
     Query: {
         getUser: async (parent, args, context, info) => {
-            const user = await getByIdOrUserInputError(UserModel, args.id);
-            return user;
+            return await getByIdOrUserInputError(UserModel, args.id, 'User not found');
         }
     },
     Mutation: {
@@ -16,12 +15,12 @@ const resolvers = {
             return newUser;
         },
         deleteUser: async (parent, args, context, info) => {
-            const user = await getByIdOrUserInputError(UserModel, args.id);
+            const user = await getByIdOrUserInputError(UserModel, args.id, 'User not found');
             await user.remove();
             return user;
         },
         updateUser: async (parent, args, context, info) => {
-            const user = await getByIdOrUserInputError(UserModel, args.user.id);
+            const user = await getByIdOrUserInputError(UserModel, args.user.id, 'User not found');
             updateObjectFields(user, args.user);
             await user.save();
             return user;
