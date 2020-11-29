@@ -8,6 +8,7 @@ const typeDefs = gql`
         lastName: String!
         email: String!
         posts: [Post!]!
+        profilePicture: String
     }
 
     input UserCreateInput {
@@ -29,8 +30,8 @@ const typeDefs = gql`
 
     extend type Mutation {
         createUser(user: UserCreateInput!): User!
-        updateUser(user: UserUpdateInput!): User!
-        deleteUser(id: ID!): User!
+        updateUser(userId: ID!, user: UserUpdateInput!): User!
+        deleteUser(userId: ID!, id: ID!): User!
     }
 `
 
