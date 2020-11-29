@@ -1,5 +1,5 @@
 const { UserModel, default: user } = require('./models/user');
-const { getByIdOrUserInputError } = require('../helpers');
+const { getByIdOrUserInputError, updateObjectFields } = require('../helpers');
 
 
 const resolvers = {
@@ -22,10 +22,7 @@ const resolvers = {
         },
         updateUser: async (parent, args, context, info) => {
             const user = await getByIdOrUserInputError(UserModel, args.user.id);
-            const new_data = args.user;
-            user.firstName = new_data.firstName ? new_data.firstName : user.firstName;
-            user.lastName = new_data.lastName ? new_data.lastName : user.lastName;
-            user.email = new_data.email ? new_data.email : user.email;
+            updateObjectFields(user, args.user);
             await user.save();
             return user;
         }
